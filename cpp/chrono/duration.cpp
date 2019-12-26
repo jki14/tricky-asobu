@@ -13,5 +13,9 @@ int main() {
   decltype(std::chrono::microseconds(u)) bar(1000u);
   std::cerr << bar.count() << std::endl;
   assert(foo == bar);
+
+  std::chrono::microseconds ms;
+  // decltype(ms)::l1dfwea();
+
   return 0;
 }
