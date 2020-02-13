@@ -1,6 +1,6 @@
 def solution(foo, bar):
-    f = lambda foo, bar : (str(bar) if '.' in str(bar) else str(bar) + '.') \
-        if not foo else f(foo[1:], bar[foo[0]])
+    f = lambda foo, bar, p = 0: (str(bar) if '.' in str(bar) else str(bar) + '.') \
+        if p == len(foo) else f(foo, bar[foo[p]], p + 1)
     return f(foo, bar)
 
 def main():
