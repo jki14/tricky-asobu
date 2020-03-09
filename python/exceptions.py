@@ -10,7 +10,8 @@ def solution():
 
 
 def constructed_error():
-    raise ValueError('Test Error Message.')
+    msg = 'Test Error Message.'
+    raise KeyError(msg)
 
 
 def default_error():
@@ -22,11 +23,11 @@ def main():
     try:
         default_error()
     except ValueError as e:
-        print(str(e))
+        print('error message: %s !' % e)
     try:
         constructed_error()
-    except ValueError as e:
-        print(str(e))
+    except KeyError as e:
+        print('error message: %s !' % e)
 
 
 
