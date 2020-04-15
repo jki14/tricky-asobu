@@ -12,5 +12,7 @@ println(seven.getOrElse(fourt))
 println(nullx.fold("")(_.toString))
 println(seven.fold("")(_.toString))
 println(nully.toString)
+println(seven.fold(0)(_.toInt))
+println(nully.fold(0)(_.toInt))
 
 val foo = fourt - seven.fold(fourt)(_.toInt)
