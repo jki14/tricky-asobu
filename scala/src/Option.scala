@@ -16,3 +16,6 @@ println(seven.fold(0)(_.toInt))
 println(nully.fold(0)(_.toInt))
 
 val foo = fourt - seven.fold(fourt)(_.toInt)
+
+println(s"${nullx.contains(7)}")
+println(s"${seven.contains(7)}")
