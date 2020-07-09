@@ -7,8 +7,7 @@ val bar = foo.map(mss)
 println(bar.reverse.mkString(" "))
 
 var map : Map[String, Set[String]] = Map.empty
-map = map + ("CORP" -> Set[String]("X", "A", "Y"))
-map = map + ("PROD" -> Set[String]("A", "Z", "Y"))
+map += ("CORP" -> Set[String]("X", "A", "Y"), "PROD" -> Set[String]("A", "Z", "Y"))
 
 println(map.mkString("\n"))
 
