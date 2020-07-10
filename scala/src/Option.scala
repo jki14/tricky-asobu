@@ -4,6 +4,16 @@ var seven = None: Option[Int]
 
 seven = Some(7)
 
+val check = (opt: Option[Int]) => opt match {
+    case Some(i) =>
+        println(s"Found $i")
+    case None =>
+        println("Not found")
+}
+
+check(nullx)
+check(seven)
+
 println(7 + nullx.getOrElse(nully.getOrElse(seven.get)))
 
 val fourt :Int = 14
