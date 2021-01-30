@@ -39,13 +39,13 @@ stat_t<IsAtomic>::stat_t(int const lhs, int const rhs) : hit(lhs), cnt(rhs) {
 
 template<bool IsAtomic>
 stat_t<IsAtomic>::stat_t(stat_t<!IsAtomic> const& rhs) : hit(rhs.hit),
-                                                         cnt(rhs.hit) {
+                                                         cnt(rhs.cnt) {
 }
 
 template<bool IsAtomic>
 stat_t<IsAtomic>::stat_t(stat_t<!IsAtomic>&& rhs) :
     hit(std::move(rhs.hit)),
-    cnt(std::move(rhs.hit)) {
+    cnt(std::move(rhs.cnt)) {
 }
 
 template<bool IsAtomic>
