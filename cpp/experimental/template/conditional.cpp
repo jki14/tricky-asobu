@@ -19,8 +19,10 @@ public:
   stat_t& operator=(stat_t<!IsAtomic> const&);
   stat_t& operator=(stat_t<!IsAtomic>&&);
 
-  stat_t& operator+=(stat_t const& rhs);
-  stat_t& operator-=(stat_t const& rhs);
+  template<bool IsAtomicRhs>
+  stat_t& operator+=(stat_t<IsAtomicRhs> const& rhs);
+  template<bool IsAtomicRhs>
+  stat_t& operator-=(stat_t<IsAtomicRhs> const& rhs);
 
   void reset();
   stat_t<false> fetch();
@@ -61,20 +63,32 @@ stat_t<IsAtomic>::operator=(stat_t<!IsAtomic>&& rhs) {
 }
 
 template<bool IsAtomic>
+template<bool IsAtomicRhs>
 stat_t<IsAtomic>&
-stat_t<IsAtomic>::operator+=(stat_t<IsAtomic> const& rhs) {
+stat_t<IsAtomic>::operator+=(stat_t<IsAtomicRhs> const& rhs) {
   hit += rhs.hit;
   cnt += rhs.cnt;
   return *this;
 }
 
+template stat_t<false>& stat_t<false>::operator+=(stat_t<false> const& rhs);
+template stat_t<true>& stat_t<true>::operator+=(stat_t<true> const& rhs);
+template stat_t<false>& stat_t<false>::operator+=(stat_t<true> const& rhs);
+template stat_t<true>& stat_t<true>::operator+=(stat_t<false> const& rhs);
+
 template<bool IsAtomic>
+template<bool IsAtomicRhs>
 stat_t<IsAtomic>&
-stat_t<IsAtomic>::operator-=(stat_t<IsAtomic> const& rhs) {
+stat_t<IsAtomic>::operator-=(stat_t<IsAtomicRhs> const& rhs) {
   hit -= rhs.hit;
   cnt -= rhs.cnt;
   return *this;
 }
+
+template stat_t<false>& stat_t<false>::operator-=(stat_t<false> const& rhs);
+template stat_t<true>& stat_t<true>::operator-=(stat_t<true> const& rhs);
+template stat_t<false>& stat_t<false>::operator-=(stat_t<true> const& rhs);
+template stat_t<true>& stat_t<true>::operator-=(stat_t<false> const& rhs);
 
 template<bool IsAtomic>
 void stat_t<IsAtomic>::reset() {
