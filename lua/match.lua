@@ -1,0 +1,6 @@
+print(string.match('1087016831', '^10%d%d%d%d%d%d%d%d$'))
+print(string.match('0087016831', '^10%d%d%d%d%d%d%d%d$'))
+print(string.match('108701683', '^10%d%d%d%d%d%d%d%d$'))
+print(string.match('10870168312', '^10%d%d%d%d%d%d%d%d$'))
+print(string.match('1087016x83', '^10%d%d%d%d%d%d%d%d$'))
+print(string.match('10870168?3', '^10%d%d%d%d%d%d%d%d$'))
