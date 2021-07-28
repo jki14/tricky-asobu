@@ -2,7 +2,8 @@ function f(a, b, ...)
     print('---')
     print(a or 'nil')
     print(b or 'nil')
-    foo = table.pack(...)
+    -- foo = table.pack(...)
+    foo = {...}
     bar = '['
     for i = 1, #foo do
         if string.len(bar) > 1 then
