@@ -3,7 +3,7 @@ public:
   int x, y;
 };
 
-inline bool operator==(C const& lhs, C const& rhs) {
+bool operator==(C const& lhs, C const& rhs) {
   return lhs.x == rhs.x && lhs.y == rhs.y;
 }
 
