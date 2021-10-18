@@ -5,6 +5,13 @@ function func(x, y, z)
     print('\n')
 end
 
+--[[
+function func(x)
+    print('x = ' .. tostring(x))
+    print('\n')
+end
+]]--
+
 func(1, 2, 3)
 func(1, 2)
 func(1)
