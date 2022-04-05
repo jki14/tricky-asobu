@@ -24,6 +24,9 @@ find . -name '*.html' -not -path './.git/*' -exec git add {} \;
 #add *.scala files
 find . -name '*.scala' -not -path './.git/*' -exec git add {} \;
 
+#add *.lua files
+find . -name '*.lua' -not -path './.git/*' -exec git add {} \;
+
 #add *.conf files
 find . -name '*.conf' -not -path './.git/*' -exec git add {} \;
 
