@@ -12,6 +12,7 @@ function f(a, b, ...)
         bar = bar .. foo[i] or 'nil'
     end
     bar = bar .. ']'
+    print('select(1, ...) = ' .. (select(1, ...) or 'nil'))
     print(bar)
 end
 
