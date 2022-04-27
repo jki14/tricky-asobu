@@ -43,3 +43,13 @@ g('a')
 g('a', 'b')
 g('a', 'b', 'c')
 g('a', 'b', 'c', 'd')
+
+function f1()
+    return 'a', 'b', 'c', 'd'
+end
+
+-- a, b, ... = f1()
+a, b = f1()
+print('^^^')
+print(a or 'nil')
+print(b or 'nil')
