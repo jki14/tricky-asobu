@@ -7,9 +7,21 @@ y_score = np.asarray([[0, -1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11]])
 
 foo = dcg_score(y_true, y_score, k = 10)
 print(foo)
-
 y_score2 = np.asarray([[1111, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]])
 bar = dcg_score(y_true, y_score2, k = 10)
+print(bar)
+
+y_true2 = np.copy(y_true)
+y_true2[0, 4] = 0.314
+print(y_true)
+print(y_true2)
+y_score2 = np.flip(y_score2, axis = 1)
+bar = dcg_score(y_true2, y_score2, k = 10)
+print(bar)
+print((foo + bar) * 0.5)
+y_true2 = np.concatenate((y_true, y_true2))
+y_score2 = np.concatenate((y_score, y_score2))
+bar = dcg_score(y_true2, y_score2, k = 10)
 print(bar)
 
 y_trues = np.flip(np.sort(y_true), axis = 1)
