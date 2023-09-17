@@ -1,21 +1,24 @@
-from numpy import cos, radians, sin, tan
+from numpy import cos, floor, int64, radians, sin, tan
 from sys import stderr, stdout
 
 
-R = 0.1
+R = 1
 W = 3000
 H = 3300
 W2 = 1100
 H2 = 600
-E = 150
+D = 90
+E = 200
+P = 1
 
 
-def buildhex(x):
+def buildhex(x, dd = 0.0):
     h = x * cos(radians(30))
     foo = [(x * 0.5, h)]
     foo = foo + [(x, 0)] + [(p[0], -p[1]) for p in foo]
     foo = foo + [(-p[0], p[1]) for p in foo]
-    foo = foo + [(W2 * 0.5, h + H2), (W2 * 0.5, h), (-W2 * 0.5, h + H2), (-W2 * 0.5, h)]
+    foo = foo + [(W2 * 0.5 + dd, h + H2), (W2 * 0.5 + dd, h)]
+    foo = foo + [(-W2 * 0.5 + dd, h + H2), (-W2 * 0.5 + dd, h)]
     return foo
 
 
@@ -35,7 +38,7 @@ def translate(s, dx, dy):
     return [(p[0] + dx, p[1] + dy) for p in s]
 
 
-def check(x, d, getres = False):
+def check(x, d, dd = 0.0, getres = False):
     points = rotate(buildhex(x), radians(d))
     xs = [p[0] for p in points]
     ys = [p[1] for p in points]
@@ -51,19 +54,32 @@ def check(x, d, getres = False):
         return True
 
 
+def checkdd(x, d, getres = False):
+    for i in range(int64(floor((x - W2 + 1e-14)) * 0.5 / P) + 1):
+        dd = i * P
+        tmp = check(x, d, -i * P, getres)
+        if tmp != False:
+            return tmp
+        tmp = check(x, d, i * P, getres)
+        if tmp != False:
+            return tmp
+    return False
+
+
 def binary_search(d, hig = 4096):
-    lef, rig = -hig, 0
+    lef, rig = -hig, -W2
     while lef < rig - 1e-6:
         mid = (lef + rig) / 2
-        if check(-mid, d):
+        if checkdd(-mid, d):
             rig = mid
         else:
             lef = mid + 1e-2
+    stderr.write('done for %.6f degrees.\n' % d)
     return -rig
 
 
 def main():
-    buf = [binary_search(d * R) for d in range(round(90 / R))]
+    buf = [binary_search(d * R) for d in range(round(D / R))]
     top = max(buf)
     stdout.write('Best: clockwise %.6f degrees, get a = %6f.\n' % (buf.index(top) * R, top))
     '''
@@ -72,7 +88,7 @@ def main():
             stderr.write('%d -> %6f\n' % (i * R, buf[i]))
     '''
     # candidates = rotate(buildhex(top), radians(-buf.index(top) * R))
-    candidates = check(top, -buf.index(top) * R, True)
+    candidates = checkdd(top, -buf.index(top) * R, True)
     # candidates = candidates + [(-W * 0.5, -H * 0.5)]
     # dx, dy = -W * 0.5, -H * 0.5
     # dx = max([p[0] for p in candidates])
